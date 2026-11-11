@@ -10,6 +10,13 @@
   const nowCount = document.querySelector('.page-now .count');
   const bar = document.querySelector('.progress i');
   const notesPanel = document.querySelector('.notes-panel');
+  const readingToggle = document.querySelector('.reading-toggle');
+  readingToggle.addEventListener('click', () => {
+    const enabled = document.documentElement.classList.toggle('reading');
+    readingToggle.setAttribute('aria-pressed', String(enabled));
+    readingToggle.textContent = enabled ? '화면에 맞추기' : '크게 보기';
+    window.scrollTo(0, 0);
+  });
   let cur = -1;
 
   // 화면에 맞춰 무대 배율 조정(스크롤 없음)
@@ -109,8 +116,12 @@
   addEventListener('hashchange', () => go(fromHash()));
   document.querySelector('.nav .prev').addEventListener('click', () => prev());
   document.querySelector('.nav .next').addEventListener('click', () => next());
-  // 무대를 클릭하면 다음(단계 → 장). 버튼·링크 클릭은 제외
-  stage.addEventListener('click', (e) => { if (e.target.closest('button, a, .rail, .notes-panel, .mark')) return; next(); });
+  // 무대 왼쪽은 이전, 오른쪽은 다음(단계 → 장). 상호작용 요소는 제외
+  stage.addEventListener('click', (e) => {
+    if (e.target.closest('button, a, input, select, textarea, [contenteditable], .rail, .notes-panel, .mark')) return;
+    const bounds = stage.getBoundingClientRect();
+    if (e.clientX < bounds.left + bounds.width / 2) prev(); else next();
+  });
   // 영역 뱃지: 누르면 그 영역 코드 표시, 같은 뱃지를 다시 누르면 해제
   stage.addEventListener('click', (e) => { const b = e.target.closest('.mark-tab'); if (!b) return; const s = b.closest('.slide'); const k = Number(b.dataset.step); setStep(s, Number(s.dataset.step || 0) === k ? 0 : k); });
   document.querySelector('.fs').addEventListener('click', () => toggleFs());
@@ -119,6 +130,7 @@
   addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const k = e.key;
+    if ((k === 'Enter' || k === ' ') && e.target?.closest?.('button, a, input, select, textarea, [contenteditable]:not([contenteditable="false"])')) return;
     if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(k)) { e.preventDefault(); next(); }
     else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); prev(); }
     else if (k === 'Home') go(0);
@@ -134,3 +146,4 @@
   const start = () => requestAnimationFrame(() => requestAnimationFrame(() => go(fromHash())));
   if (document.readyState === "complete") start(); else addEventListener("load", start, { once: true });
 })();
+

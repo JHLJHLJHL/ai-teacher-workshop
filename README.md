@@ -26,7 +26,7 @@ node build-deck.mjs
 
 `deck/index.html`을 브라우저로 열거나, 이 폴더에서 `python -m http.server 5191` 후 `http://localhost:5191/deck/index.html`.
 
-조작: `←` `→` `Space` 이동 · `F` 전체 화면 · `N` 발표 메모 · 헤더 번호로 장 이동.
+조작: `←` `→` `Space` 이동 · `F` 전체 화면 · `N` 발표 메모 · 헤더 번호로 장 이동. 작은 화면에서는 왼쪽 위 「크게 보기」를 눌러 원본 크기로 확대하고 화면을 스크롤할 수 있다.
 
 ## 앱 화면 캡처 다시 찍기
 

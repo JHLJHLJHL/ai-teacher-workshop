@@ -263,6 +263,7 @@ const html = `<!doctype html>
 <link rel="stylesheet" href="deck.css?v=${Date.now()}">
 </head>
 <body>
+<button class="reading-toggle" type="button" aria-pressed="false">크게 보기</button>
 <div class="stage">
   <header class="topbar">
     <div class="brand"><img class="brand-icon" src="../images/icon-workbench.png" alt="">생기부 AI 작업실<span class="brand-sub">교사 연수</span></div>
@@ -282,5 +283,5 @@ ${slideHtml}
 </body>
 </html>
 `;
-writeFileSync(OUT, html);
+writeFileSync(OUT, html.replace(/^ +$/gm, ''));
 console.log(`슬라이드 ${slides.length}장 · 부 ${parts.length}개 → ${path.relative(process.cwd(), OUT)}`);

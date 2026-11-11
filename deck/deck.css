@@ -503,3 +503,24 @@ body::before {
 .blocks .blk h4 { font-weight: 500; }
 /* 포커스 링: 키보드 사용자용, 강조색 */
 .rail button:focus-visible, .nav button:focus-visible, .icon-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* 작은 화면에서 1600×900 원본을 스크롤하며 읽는 선택 모드 */
+.reading-toggle { display: none; position: fixed; top: 8px; left: 8px; z-index: 50; padding: 8px 12px; border: 1px solid var(--accent); border-radius: 8px; background: var(--paper); color: var(--ink); font: 600 14px var(--font); cursor: pointer; }
+@media (max-width: 900px) { .reading-toggle { display: block; } }
+html.reading, html.reading body { overflow: auto; }
+html.reading .stage { position: relative; left: 0; top: 0; transform: none; }
+html.reading .reading-toggle { display: block; }
+.slide[data-id="2-18"] .chips { grid-template-columns: repeat(2, 1fr); gap: 8px 16px; grid-auto-rows: auto; }
+.slide[data-id="2-18"] .chip { font-size: 24px; padding: 6px 16px; grid-template-columns: 2.4em 1fr; line-height: 1.35; }
+.slide[data-id="2-18"] .chip span { font-size: 24px; }
+.slide[data-id="2-7"] .chip, .slide[data-id="2-7"] .chip span { white-space: normal; overflow: visible; }
+
+
+
+/* 20·21장: 두 카드를 기존 크기로 유지하며 가운데 배치 */
+.slide[data-id="2-14"] .cards.one-row,
+.slide[data-id="2-15"] .cards.one-row {
+  width: calc((100% - 22px) * 2 / 3);
+  align-self: center;
+  grid-template-columns: repeat(2, 1fr);
+}
