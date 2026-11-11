@@ -1,0 +1,5 @@
+# 생성 이미지 원본 백업(크기 큼)
+images/_원본/
+# 임시
+*.tmp
+node_modules/
