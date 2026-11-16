@@ -198,7 +198,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: .9em; }
 .stage.is-cover .topbar, .stage.is-cover .rail, .stage.is-cover .bottombar, .stage.is-cover .progress { opacity: 0; pointer-events: none; }
 .topbar, .rail, .bottombar, .progress { transition: opacity .5s var(--ease); }
 .slide.cover .cover-in { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 0; }
-.cover-title { font-size: 64px; font-weight: 400; letter-spacing: -2px; line-height: 1.2; color: var(--ink); }
+.cover-title { font-size: 64px; font-weight: 700; letter-spacing: -2px; line-height: 1.2; color: var(--ink); }
 .cover-title em { font-style: normal; color: var(--accent); }
 .icons-row { display: flex; gap: 34px; margin: 64px 0 60px; }
 .icons-row .icon { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -218,7 +218,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: .9em; }
 .brand-icon { width: 26px; height: 26px; object-fit: contain; display: block; }
 .toc-in { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 72px; }
 .toc-in .toc-list { position: static; transform: none; }
-.toc-title { font-size: 52px; font-weight: 400; letter-spacing: -1.6px; color: var(--ink); }
+.toc-title { font-size: 52px; font-weight: 700; letter-spacing: -1.6px; color: var(--ink); }
 .toc-title em { font-style: normal; color: var(--accent); }
 .slide.toc.on .toc-title { animation: slideIn .8s var(--ease) both .05s; }
 .slide.toc.on .toc-list li { animation-delay: calc(.3s + var(--i, 0) * .09s); }
