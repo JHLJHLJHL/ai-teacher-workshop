@@ -15,7 +15,7 @@
   --accent: #4F6070;  /* 먹빛 회청 (#2F6BFF → #3E5C88 → 더 차분하게) */
   --shadow: 0 18px 40px rgba(20, 24, 32, .08);
   --ease: cubic-bezier(.2, .7, .1, 1);
-  --font: "SUIT", "Pretendard Local", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font: "Pretendard Local", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 }
 /* 부마다 색을 바꾸지 않는다(강조색 하나) */
 .p0, .p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8, .p9 { --accent: #4F6070; }
