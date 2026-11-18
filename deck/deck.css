@@ -5,20 +5,24 @@
 @font-face { font-family: "Pretendard Local"; src: url("fonts/PretendardVariable.woff2") format("woff2-variations"); font-weight: 45 920; font-display: swap; }
 
 :root {
-  --bg: #FFFFFF;      /* 흰 바탕 */
-  --paper: #FFFFFF;   /* 카드 · 그림 속 흰 면 (테두리와 그림자로 바탕과 구분) */
-  --ink: #1A1A1A;     /* 그림 선과 같은 90% 검정 */
-  --ink-2: #5F6368;
-  --ink-3: #9AA0A6;
-  --line: #E3E5E8;
-  --track: #EEF0F3;
-  --accent: #4F6070;  /* 먹빛 회청 (#2F6BFF → #3E5C88 → 더 차분하게) */
-  --shadow: 0 18px 40px rgba(20, 24, 32, .08);
+  /* 디자인 토큰: canvas / paper / ink / mid-gray / hairline / ember (Geist 계열 중립 + 붉은 포인트) */
+  --bg: #f5f5f5;      /* canvas */
+  --paper: #ffffff;   /* 카드 · 그림 속 흰 면 */
+  --ink: #0a0a0a;
+  --ink-2: #525252;
+  --ink-3: #737373;   /* mid-gray */
+  --line: #e5e5e5;    /* hairline */
+  --track: #ececec;
+  --surface-alt: #fafafa;
+  --accent: #0a0a0a;  /* 단색 시스템: 강조 = ink. ember(#e7000b)는 작은 표식에만 */
+  --ember: #e7000b;
+  --radius-md: 6px; --radius-lg: 10px; --radius-xl: 14px; --radius-2xl: 18px;
+  --shadow: 0 0 0 1px rgba(10,10,10,.05), 0 1px 3px rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
   --ease: cubic-bezier(.2, .7, .1, 1);
-  --font: "Pretendard Local", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font: "Geist", "Pretendard Local", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
 }
 /* 부마다 색을 바꾸지 않는다(강조색 하나) */
-.p0, .p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8, .p9 { --accent: #4F6070; }
+.p0, .p1, .p2, .p3, .p4, .p5, .p6, .p7, .p8, .p9 { --accent: #0a0a0a; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink); font-family: var(--font); -webkit-font-smoothing: antialiased; word-break: keep-all; }
@@ -524,3 +528,49 @@ html.reading .reading-toggle { display: block; }
   align-self: center;
   grid-template-columns: repeat(2, 1fr);
 }
+
+/* ───────── 리디자인: Geist 중립 + ember 포인트 (design/redesign) ─────────
+   꿀빛 배경 제거 → 평평한 canvas. 카드는 흰 면 + subtle 그림자, 반경 10/14. */
+body::before { display: none; }
+html, body { background: var(--bg); }
+.stage, .slide { background: transparent; }
+.card, .cards > .card:nth-child(2) { background: var(--paper); border: 0; border-radius: var(--radius-xl); box-shadow: var(--shadow); }
+.visual img.cap { border: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.nav button, .icon-btn, .nav .hint kbd, .flow li::before { background: var(--paper); }
+.chip { background: var(--paper); border-radius: var(--radius-lg); border-color: var(--line); }
+.mark-tab { background: var(--paper); border-radius: var(--radius-md); }
+.mark-tabs li { border-radius: var(--radius-md); }
+.slide.marking .chip:not(.lit) { background: transparent; border-color: var(--line); }
+.slide.marking .chip:not(.lit) b, .slide.marking .chip:not(.lit) span { color: #c4c4c4; }
+.blocks.big .tbl tbody tr:nth-child(odd) td { background: var(--surface-alt); }
+.ph { border-color: #d4d4d4; background: none; }
+.cards .card-img .ph { border-color: #d4d4d4; }
+.title, .cover-title, .toc-title { letter-spacing: -1.5px; }
+.title em, .toc-title em, .cover-title em { color: var(--ink-3); }
+code { border-radius: var(--radius-md); }
+.reading-toggle { border-color: var(--line); border-radius: var(--radius-md); }
+.brand-dots i:nth-child(n) { background: var(--ink); }
+.brand-dots i:nth-child(1) { background: var(--accent); }
+
+/* 토큰 상세 반영: 카드 24 · 버튼/뱃지 18 · 중첩 10 · 제목 600, 자간 -0.05em */
+.card, .cards > .card:nth-child(2) { border-radius: 24px; }
+.nav button, .icon-btn, .mark-tab, .mark-tabs li { border-radius: 18px; }
+.nav .hint kbd { border-radius: 6px; }
+.title, .toc-title, .cover-title { font-weight: 600; letter-spacing: -0.05em; }
+.card h3, .blocks .blk h4 { font-weight: 600; }
+.body .text { letter-spacing: -0.01em; }
+
+/* 스타일 가이드 반영: 단색(ink) 강조 · ember는 표식에만 · 카드 hairline+shadow · 18/24 반경 · 그라데이션 없음 */
+.card, .cards > .card:nth-child(2) { border: 1px solid var(--line); }
+.visual img.cap { border: 1px solid var(--line); }
+.chip, .nav button, .icon-btn, .mark-tab, .mark-tabs li { border-radius: 18px; }
+.chip { border-radius: 18px; }
+.slide.marking .chip:not(.lit) b, .slide.marking .chip:not(.lit) span { color: var(--ink-3); }
+.slide.marking .chip.lit, .mark-tab.cur { background: #171717; border-color: #171717; color: #fafafa; }
+.slide.marking .chip.lit b, .slide.marking .chip.lit span { color: #fafafa; }
+.tbl tr.hl td { background: var(--surface-alt); }
+.stat .v, .stat .k { font-variant-numeric: tabular-nums; }
+.stat .v { font-weight: 600; letter-spacing: -0.05em; }
+.brand-dots i:nth-child(1) { background: var(--ember); }
+.nav button:hover, .icon-btn:hover { border-color: var(--ink); color: var(--ink); }
+.nav button:hover { transform: none; }
