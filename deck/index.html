@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>생기부 AI 작업실 연수</title>
 <link rel="preload" href="fonts/PretendardVariable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="deck.css?v=1794969489085">
+<link rel="stylesheet" href="deck.css?v=1795436451017">
 </head>
 <body>
 <button class="reading-toggle" type="button" aria-pressed="false">크게 보기</button>
@@ -61,6 +61,120 @@
   <div class="body full"><div class="text" data-fs="26" style="--fs:26px"><div class="cards" style="--n:2"><div class="a card" style="--i:0"><h3>세특검토함 ① 출력한 생기부 더미</h3><p>지난 여름방학, 생기부를 모두 출력해 한 장씩 읽으며 점검<br>&quot;이건 나보다 AI가 잘하겠다&quot;<br>기재요령 지침 · 오타 · 문맥 이상 · 중복 기재 점검</p></div><div class="a card" style="--i:1"><h3>세특검토함 ② 점검에서 채점으로</h3><p>점검을 넘어 기록을 개선하고 싶다<br>지인의 아이디어: 세특을 채점하는 도구 → 채점 기준표가 필요<br>분야별로 입학사정관 입장에서 본 좋은 기록의 기준</p></div><div class="a card" style="--i:2"><h3>열매세특 — 기준에서 거꾸로</h3><p>채점 기준을 적용하면 고득점 기록을 만들 수 있겠다<br>학생 활동 인터뷰를 일괄로 받아 일괄 생성 → 열매카드<br>열매카드 문항 = 세특검토함 채점 기준 항목</p></div><div class="a card" style="--i:3"><h3>하나로 맞물리다</h3><p>따로 시작해 서로 영향을 주며 지금에 이르렀다<br>씨앗카드 → 탐구주제추천 · 열매카드 → 열매세특<br>채점 기준 → 열매카드 문항 · 세특검토함 → 쓴 기록 점검</p></div></div></div></div>
 
   <div class="notes"><p>출력물 더미 사진이 있으면 나중에 넣을 수 있음(개인정보 가림). 채점 기준표(루브릭)가 열매세특까지 이어지는 출발점. 열매세특은 가장 마지막에 만든 도구 — 검토 기준과 작성 기준이 같다는 점이 핵심. 한 해의 흐름은 5부에서 다시 다룬다.</p><p style="opacity:.7">애니메이션: 네 묶음이 차례로 나타남</p></div>
+</section>
+<section class="slide" data-id="1-3" data-part="1">
+  <div class="head">
+    <div class="eyebrow"><span class="num">【01】</span><span>만든 계기 · 작동 구조</span></div>
+    <h1 class="title">서버 없이 브라우저 안에서, <em>AI 요청은 내 키로 직접</em></h1>
+    <p class="desc">생기부 AI 작업실의 작동 구조 — 세 앱이 공유 AI 허브를 거쳐 AI 제공사에 요청을 보낸다</p>
+  </div>
+  <div class="body full diagram"><div class="text" data-fs="15"><div class="dg dg-arch">
+  <div class="dg-region a" style="--i:0;left:204px;top:108px;width:812px;height:370px"><span class="dg-tag">브라우저 · 단일 HTML</span></div>
+  <svg class="dg-lines" viewBox="0 0 1348 536" aria-hidden="true">
+    <defs>
+      <marker id="dg-ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-ah"/></marker>
+      <marker id="dg-ah-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-ah em"/></marker>
+    </defs>
+    <path class="dg-l" d="M164 236 H228" marker-end="url(#dg-ah-g)"/>
+    <path class="dg-l opt" d="M500 72 V142" marker-end="url(#dg-ah-g)"/>
+    <path class="dg-l em" d="M548 236 H668" marker-end="url(#dg-ah-e)"/>
+    <path class="dg-l em" d="M996 236 H1136" marker-end="url(#dg-ah-e)"/>
+    <path class="dg-l" d="M388 330 V366" marker-end="url(#dg-ah-g)"/>
+    <path class="dg-l" d="M832 330 V366" marker-end="url(#dg-ah-g)"/>
+  </svg>
+
+  <div class="dg-n dg-in a" style="--i:1;left:0;top:142px;width:164px;height:188px"><b>교사 입력</b><span>엑셀 응답 .xlsx</span><span>NEIS XLS data</span><span>기록 직접 입력</span></div>
+
+  <div class="dg-n dg-ext a" style="--i:2;left:228px;top:0;width:320px;height:72px"><b>프롬프트 서버</b><span>Vercel · bundle.json · 문구 조각만 내려줌</span></div>
+
+  <div class="dg-n dg-apps a" style="--i:3;left:228px;top:142px;width:320px;height:188px">
+    <p><b>탐구주제추천</b><span>교과·창체 주제 · 계획서</span></p>
+    <p><b>열매세특</b><span>응답 엑셀로 학생별 초안</span></p>
+    <p><b>세특검토함</b><span>루브릭 점검 · 다시 쓰기</span></p>
+  </div>
+
+  <div class="dg-n dg-hub a" style="--i:4;left:668px;top:142px;width:328px;height:188px"><b>공유 AI 허브</b><span class="dg-mono">Hub.call()</span><span>연결 목록 순서대로 호출</span><span>429 · 503 이면 재시도</span><span>실패하면 다음 연결로</span><span>거절된 연결은 10분 건너뜀</span></div>
+
+  <div class="dg-n dg-store a" style="--i:5;left:228px;top:366px;width:768px;height:90px"><b>브라우저 저장소 · localStorage</b><span>AI 키 · 연결 순서 · 상담 · 작업 · 점검 기록</span></div>
+
+  <div class="dg-n dg-ext a" style="--i:6;left:1136px;top:176px;width:212px;height:120px"><b>AI 제공사</b><span>Gemini · Claude · OpenAI</span><span>내 API 키로 직접 호출</span></div>
+
+  <span class="dg-lab a" style="--i:7;left:510px;top:80px">문구 조각</span>
+  <span class="dg-lab a" style="--i:7;left:572px;top:204px">요청·결과</span>
+  <span class="dg-lab a" style="--i:7;left:1040px;top:204px">HTTPS</span>
+  <span class="dg-lab a" style="--i:7;left:398px;top:334px">기록</span>
+  <span class="dg-lab a" style="--i:7;left:842px;top:334px">키 · 연결</span>
+
+  <div class="dg-legend a" style="--i:8;top:498px">
+    <span><i class="dg-sw dg-in"></i>입력</span>
+    <span><i class="dg-sw"></i>앱</span>
+    <span><i class="dg-sw dg-hub"></i>공유 허브</span>
+    <span><i class="dg-sw dg-store"></i>저장소</span>
+    <span><i class="dg-sw dg-ext"></i>외부 서비스</span>
+    <span><i class="dg-ln em"></i>강조선 = AI 요청</span>
+    <span><i class="dg-ln"></i>실선 = 로컬 저장·전달</span>
+    <span><i class="dg-ln opt"></i>점선 = 선택 경로</span>
+  </div>
+</div></div></div>
+  <p class="footnote">서버로 나가는 요청은 문구 조각 조회뿐. 학생 기록과 API 키는 싣지 않는다.</p>
+  <div class="notes"><p>한 줄 요지 — 서버 없이 브라우저 안에서 동작하고, AI 요청은 사용자 키로 제공사에 직접 나간다. 프롬프트 서버(점선)는 문구 조각만 내려주는 선택 경로이고, 서버가 안 되면 내장 문구로 동작한다. 허브는 연결 목록 순서대로 호출하다가 429·503이면 재시도, 실패하면 다음 연결로 넘어가고 거절된 연결은 10분 건너뛴다.</p><p style="opacity:.7">애니메이션: 노드가 차례로 나타난 뒤 선이 나타남</p></div>
+</section>
+<section class="slide" data-id="1-4" data-part="1">
+  <div class="head">
+    <div class="eyebrow"><span class="num">【01】</span><span>만든 계기 · 빌드 · 배포</span></div>
+    <h1 class="title">빌드 한 번으로 앱 4종과 문구 번들, <em>확인한 뒤 올린다</em></h1>
+    <p class="desc">생기부 AI 작업실의 빌드·배포 흐름 — 실선은 자동, 점선은 사람이 확인한 뒤 실행</p>
+  </div>
+  <div class="body full diagram"><div class="text" data-fs="15"><div class="dg dg-flow">
+  <svg class="dg-lines" viewBox="0 0 1348 536" aria-hidden="true">
+    <defs>
+      <marker id="dgf-ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-ah"/></marker>
+      <marker id="dgf-ah-e" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="dg-ah em"/></marker>
+    </defs>
+    <path class="dg-l" d="M184 216 H220" marker-end="url(#dgf-ah-g)"/>
+    <path class="dg-l em" d="M424 98 H460" marker-end="url(#dgf-ah-e)"/>
+    <path class="dg-l em" d="M424 334 H460" marker-end="url(#dgf-ah-e)"/>
+    <path class="dg-l opt" d="M722 98 H830" marker-end="url(#dgf-ah-g)"/>
+    <path class="dg-l opt" d="M722 334 H830" marker-end="url(#dgf-ah-g)"/>
+    <path class="dg-l" d="M1062 98 H1162" marker-end="url(#dgf-ah-g)"/>
+    <path class="dg-l" d="M1062 334 H1162" marker-end="url(#dgf-ah-g)"/>
+  </svg>
+
+  <div class="dg-n dg-in a" style="--i:0;left:0;top:136px;width:184px;height:160px"><b>원천</b><span class="dg-mono">src/ · tools/ports</span><span class="dg-mono">vendor/upstreams</span><span class="dg-mono">docs/prompts</span></div>
+
+  <div class="dg-n dg-hub a" style="--i:1;left:220px;top:0;width:204px;height:432px"><b>빌드</b><span class="dg-mono">node tools/build.mjs</span><span>통합앱 1 + 독립앱 3 빌드</span><span>app-lock 암호로 잠금</span><span>prompt-server 다시 생성</span><span>npm test로 점검·시험</span></div>
+
+  <div class="dg-n a" style="--i:2;left:460px;top:0;width:262px;height:196px"><span class="dg-kind">산출물</span><b>dist/ 4종</b><span class="dg-mono">AI_Workbench(Vx.x.x).html</span><span class="dg-mono">Report_g(Vx.x.x).html</span><span class="dg-mono">YMseteuk(Vx.x.x).html</span><span class="dg-mono">Checkr(Vx.x.x).html</span></div>
+  <div class="dg-n a" style="--i:3;left:460px;top:236px;width:262px;height:196px"><span class="dg-kind">산출물</span><b>prompt-server/</b><span class="dg-mono">bundle.json · version.json</span><span>빌드가 만든 생성물</span></div>
+
+  <div class="dg-n dg-ext a" style="--i:4;left:830px;top:0;width:232px;height:196px"><span class="dg-kind">외부</span><b>배포 페이지</b><span>jhljhljhl.github.io/release</span><span>앱 파일 4개를 올려 둠</span></div>
+  <div class="dg-n dg-ext a" style="--i:5;left:830px;top:236px;width:232px;height:196px"><span class="dg-kind">외부</span><b>Vercel</b><span>workbench-amber-nu</span><span>푸시하면 자동 배포</span></div>
+
+  <div class="dg-n dg-ext dg-user a" style="--i:6;left:1162px;top:0;width:186px;height:432px">
+    <span class="dg-kind">외부</span><b>사용자 앱</b>
+    <p style="top:84px"><span>앱 파일 내려받아</span><span>더블클릭으로 실행</span></p>
+    <p style="top:316px"><span>문구는 처음 열 때 받음</span><span>다음 열 때부터 적용</span><span>새 버전이면 안내</span></p>
+  </div>
+
+  <span class="dg-lab a" style="--i:7;left:736px;top:66px">수동 업로드</span>
+  <span class="dg-lab a" style="--i:7;left:754px;top:302px">git push</span>
+  <span class="dg-lab a" style="--i:7;left:1081px;top:66px">내려받기</span>
+  <span class="dg-lab a" style="--i:7;left:1099px;top:302px">조회</span>
+
+  <div class="dg-legend a" style="--i:8;top:454px">
+    <span><i class="dg-sw dg-in"></i>입력</span>
+    <span><i class="dg-sw dg-hub"></i>빌드</span>
+    <span><i class="dg-sw"></i>산출물</span>
+    <span><i class="dg-sw dg-ext"></i>외부</span>
+    <span><i class="dg-ln em"></i>강조선 = 빌드 산출</span>
+    <span><i class="dg-ln"></i>실선 = 자동</span>
+    <span><i class="dg-ln opt"></i>점선 = 사람이 확인한 뒤 실행</span>
+  </div>
+  <p class="dg-memo a" style="--i:9;top:490px">연수용 · 키 내장 빌드는 배포 페이지에 올리지 않는다.</p>
+  <p class="dg-memo a" style="--i:9;top:514px">푸시하면 모든 사용자에게 나간다. 푸시 전에 먼저 알린다.</p>
+</div></div></div>
+
+  <div class="notes"><p>한 줄 요지 — 빌드 한 번으로 앱 파일 4종과 문구 번들이 나오고, 사람이 확인한 뒤 올린다. 점선은 사람이 하는 단계(수동 업로드 · git push). 연수용 · 키 내장 빌드는 배포 페이지에 올리지 않는다. 푸시하면 모든 사용자에게 나가므로 푸시 전에 먼저 알린다.</p><p style="opacity:.7">애니메이션: 노드가 차례로 나타난 뒤 선이 나타남</p></div>
 </section>
 <section class="slide solo" data-id="2-0" data-part="2">
   <div class="head">
@@ -667,7 +781,7 @@
   <div class="progress"><i></i></div>
 </div>
 <div class="notes-panel" aria-live="polite"></div>
-<script type="application/json" id="parts">[{"id":"0","num":"00","name":"시작","first":0,"short":"시작"},{"id":"1","num":"01","name":"생기부 AI 작업실을 만든 계기","first":2,"short":"만든 계기"},{"id":"2","num":"02","name":"세특검토함의 채점 기준 설정","first":5,"short":"채점 기준"},{"id":"3","num":"03","name":"열매세특의 설계","first":23,"short":"열매세특"},{"id":"4","num":"04","name":"탐구주제추천의 설계","first":40,"short":"탐구주제추천"},{"id":"5","num":"05","name":"자료의 활용","first":51,"short":"자료의 활용"},{"id":"6","num":"06","name":"실습","first":59,"short":"실습"},{"id":"7","num":"07","name":"질의 응답","first":60,"short":"질의 응답"},{"id":"8","num":"08","name":"당부","first":61,"short":"당부"},{"id":"9","num":"09","name":"마침","first":63,"short":"마침"}]</script>
-<script src="deck.js?v=1794969489085"></script>
+<script type="application/json" id="parts">[{"id":"0","num":"00","name":"시작","first":0,"short":"시작"},{"id":"1","num":"01","name":"생기부 AI 작업실을 만든 계기","first":2,"short":"만든 계기"},{"id":"2","num":"02","name":"세특검토함의 채점 기준 설정","first":7,"short":"채점 기준"},{"id":"3","num":"03","name":"열매세특의 설계","first":25,"short":"열매세특"},{"id":"4","num":"04","name":"탐구주제추천의 설계","first":42,"short":"탐구주제추천"},{"id":"5","num":"05","name":"자료의 활용","first":53,"short":"자료의 활용"},{"id":"6","num":"06","name":"실습","first":61,"short":"실습"},{"id":"7","num":"07","name":"질의 응답","first":62,"short":"질의 응답"},{"id":"8","num":"08","name":"당부","first":63,"short":"당부"},{"id":"9","num":"09","name":"마침","first":65,"short":"마침"}]</script>
+<script src="deck.js?v=1795436451017"></script>
 </body>
 </html>

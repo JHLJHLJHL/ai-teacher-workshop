@@ -78,6 +78,8 @@ function bodyHtml(slide) {
   const out = [];
   const src = slide.body.filter((l) => l.trim() !== '');
   if (!src.length || src.every((l) => none(l))) return '';
+  // 도식: 도식/<이름>.html 조각을 그대로 넣는다(노드는 HTML, 선은 인라인 SVG). 원고 본문 줄에는 조각 이름만 적는다
+  if (/^도식$/.test(slide.bodyKind || '')) return readFileSync(path.join(DIR, '도식', src[0].trim() + '.html'), 'utf8').trim();
   const statsMode = /숫자/.test(slide.bodyKind || '');
   // 단 나누기: '■ 제목' 줄로 묶음을 나눠 단(열)에 배치. 배치에 '두 단' 또는 '세 단'
   const colsM = (slide.fields['배치'] || '').match(/(두|세) 단|(표 크게)/);
@@ -247,7 +249,7 @@ const slideHtml = slides.map((s) => {
     <h1 class="title">${titleHtml(s.fields['제목'])}</h1>
     <p class="desc">${inline(desc)}</p>
   </div>
-  <div class="body ${layout}${bandFile ? ' has-band' : ''}">${body ? `<div class="text"${/단계 카드/.test(s.fields['배치'] || '') ? ' data-fs="19" style="--fs:19px"' : (/글자 크게|카드/.test(s.fields['배치'] || '') || /^카드$/.test(s.bodyKind || '')) ? ' data-fs="26" style="--fs:26px"' : ''}>${body}</div>` : layout === 'img-only' ? '<div class="text"></div>' : ''}${img ? `<div class="visual">${img}</div>` : ''}</div>${bandFile ? `<figure class="band">${existsSync(path.join(IMG_DIR, bandFile)) ? `<img src="../images/${esc(bandFile)}" alt="">` : `<div class="ph"><b>${esc(bandFile)}</b><span>띠 그림 · 투명 배경</span></div>`}</figure>` : ''}
+  <div class="body ${layout}${bandFile ? ' has-band' : ''}${/^도식$/.test(s.bodyKind || '') ? ' diagram' : ''}">${body ? `<div class="text"${/^도식$/.test(s.bodyKind || '') ? ' data-fs="15"' : /단계 카드/.test(s.fields['배치'] || '') ? ' data-fs="19" style="--fs:19px"' : (/글자 크게|카드/.test(s.fields['배치'] || '') || /^카드$/.test(s.bodyKind || '')) ? ' data-fs="26" style="--fs:26px"' : ''}>${body}</div>` : layout === 'img-only' ? '<div class="text"></div>' : ''}${img ? `<div class="visual">${img}</div>` : ''}</div>${bandFile ? `<figure class="band">${existsSync(path.join(IMG_DIR, bandFile)) ? `<img src="../images/${esc(bandFile)}" alt="">` : `<div class="ph"><b>${esc(bandFile)}</b><span>띠 그림 · 투명 배경</span></div>`}</figure>` : ''}
   ${s.fields['각주'] ? `<p class="footnote">${inline(s.fields['각주'])}</p>` : ''}
   ${notesHtml(s)}
 </section>`;
