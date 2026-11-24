@@ -617,3 +617,11 @@ code { border-radius: var(--radius-md); }
 .dg-memo { position: absolute; left: 0; font-size: 14px; color: var(--ink-3); white-space: nowrap; }
 .slide.on .dg-lines { animation: fade .6s var(--ease) both .9s; }
 .body.diagram .text { overflow: visible; }
+
+/* 2-6: 코드 분류 표 — 폭을 넓게, 첫 열 가운데·굵게, 둘째 열 왼쪽 */
+.slide[data-id="2-6"] .blocks.big .tbl { font-size: 1.02em; width: 100%; table-layout: fixed; }
+.slide[data-id="2-6"] .blocks.big .tbl th:first-child, .slide[data-id="2-6"] .blocks.big .tbl td:first-child { width: 28%; text-align: center; font-weight: 700; }
+.slide[data-id="2-6"] .blocks.big .tbl th:last-child, .slide[data-id="2-6"] .blocks.big .tbl td:last-child { width: auto; white-space: normal; text-align: left; }
+.slide[data-id="2-6"] .blocks.big .tbl td { padding: .38em .9em; }
+.slide[data-id="2-6"] .blocks.big .tbl th { padding: .35em .9em; }
+.slide[data-id="2-6"] .blocks.big { gap: 14px; }
